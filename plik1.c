@@ -1,7 +1,7 @@
-// Wyszukiwanie cyklu lub œcie¿ki Eulera
+// Wyszukiwanie cyklu lub Å›cieÅ¼ki Eulera
 // Algorytm Fleury'ego
 // Data: 8.02.2014
-// (C)2014 mgr Jerzy Wa³aszek
+// (C)2014 mgr Jerzy WaÅ‚aszek
 //---------------------------
 
 #include <iostream>
@@ -10,110 +10,110 @@
 using namespace std;
 
 // Zmienne globalne
-
+//tu BYL DOM OMIRFJSTYTGeregartharh
 int n,m,cv,sptr;
-char **A;                       // Macierz s¹siedztwa
+char **A;                       // Macierz sÄ…siedztwa
 int *S;                         // Stos w tablicy
-int *D;                         // Tablica numerów wierzcho³ków
+int *D;                         // Tablica numerÃ³w wierzchoÅ‚kÃ³w
 
-// Funkcja wyszukuj¹ca mosty w grafie
+// Funkcja wyszukujÄ…ca mosty w grafie
 // We:
-// v  - numer wierzcho³ka startowego
-// vf - ojciec wierzcho³ka v na drzewie rozpinaj¹cym
+// v  - numer wierzchoÅ‚ka startowego
+// vf - ojciec wierzchoÅ‚ka v na drzewie rozpinajÄ…cym
 // Wy:
-// Parametr Low dla wierzcho³ka v
+// Parametr Low dla wierzchoÅ‚ka v
 //---------------------------------------------------
 int DFSb(int v,int vf)
 {
   int Low,temp,i;
 
-  D[v] = cv;                    // Numerujemy wierzcho³ek
-  Low  = cv;                    // Wstêpna wartoœæ Low
-  cv++;                         // Numer dla nastêpnego wierzcho³ka
-  for(i = 0; i < n; i++)        // Przegl¹damy s¹siadów v
+  D[v] = cv;                    // Numerujemy wierzchoÅ‚ek
+  Low  = cv;                    // WstÄ™pna wartoÅ›Ä‡ Low
+  cv++;                         // Numer dla nastÄ™pnego wierzchoÅ‚ka
+  for(i = 0; i < n; i++)        // PrzeglÄ…damy sÄ…siadÃ³w v
     if(A[v][i] && (i != vf))
     {
-      if(!D[i])                 // Jeœli s¹siad nieodwiedzony, to
+      if(!D[i])                 // JeÅ›li sÄ…siad nieodwiedzony, to
       {
-        temp = DFSb(i,v);       // to wywo³ujemy rekurencyjnie DFSb()
+        temp = DFSb(i,v);       // to wywoÅ‚ujemy rekurencyjnie DFSb()
         if(temp < Low) Low = temp; // Modyfikujemy Low
       }
       else if(D[i] < Low) Low = D[i];
     }
 
   if((vf > -1) && (Low == D[v])) // Mamy most?
-    A[vf][v] = A[v][vf] = 2;    // Oznaczamy krawêdŸ vf-v jako most
+    A[vf][v] = A[v][vf] = 2;    // Oznaczamy krawÄ™dÅº vf-v jako most
 
   return Low;
 }
 
-// Procedura wyszukuje cykl lub œcie¿kê Eulera
+// Procedura wyszukuje cykl lub Å›cieÅ¼kÄ™ Eulera
 // We:
-// v - wierzcho³ek startowy
+// v - wierzchoÅ‚ek startowy
 //--------------------------------------------
 void findEuler(int v)
 {
   int u,w,i;
 
-  while(true)                   // W pêtli przetwarzamy graf
+  while(true)                   // W pÄ™tli przetwarzamy graf
   {
     S[sptr++] = v;              // v umieszczamy na stosie
 
-    for(u = 0;(u < n) && !A[v][u];u++); // Szukamy pierwszego s¹siada v
+    for(u = 0;(u < n) && !A[v][u];u++); // Szukamy pierwszego sÄ…siada v
 
-    if(u == n) break;           // Nie ma s¹siadów, koñczymy
+    if(u == n) break;           // Nie ma sÄ…siadÃ³w, koÅ„czymy
 
-    for(i = 0; i < n; i++) D[i] = 0; // Zerujemy tablicê D
+    for(i = 0; i < n; i++) D[i] = 0; // Zerujemy tablicÄ™ D
 
-    cv = 1;                     // Numer pierwszego wierzcho³ka dla DFS
-    DFSb(v,-1);                 // Identyfikujemy krawêdzie-mosty
+    cv = 1;                     // Numer pierwszego wierzchoÅ‚ka dla DFS
+    DFSb(v,-1);                 // Identyfikujemy krawÄ™dzie-mosty
 
-    // Szukamy krawêdzi nie bêd¹cej mostem
+    // Szukamy krawÄ™dzi nie bÄ™dÄ…cej mostem
 
     for(w = u + 1;(A[v][u] == 2) && (w < n); w++)
       if(A[v][w]) u = w;
 
-    A[v][u] = A[u][v] = 0;      // Usuwamy krawêdŸ v-u
+    A[v][u] = A[u][v] = 0;      // Usuwamy krawÄ™dÅº v-u
     v = u;                      // Przechodzimy do u
   }
 }
 
 // **********************
-// *** Program g³ówny ***
+// *** Program gÅ‚Ã³wny ***
 // **********************
 
 int main()
 {
   int i,j,v1,v2;
-  int *VD;                      // Stopnie wierzcho³ków
+  int *VD;                      // Stopnie wierzchoÅ‚kÃ³w
 
-  cin >> n >> m;                // Czytamy liczbê wierzcho³ków i krawêdzi
+  cin >> n >> m;                // Czytamy liczbÄ™ wierzchoÅ‚kÃ³w i krawÄ™dzi
 
-  A = new char * [n];           // Tworzymy tablicê wskaŸników
+  A = new char * [n];           // Tworzymy tablicÄ™ wskaÅºnikÃ³w
   for(i = 0; i < n; i++)
-    A[i] = new char [n];        // Tworzymy wiersze macierzy s¹siedztwa
+    A[i] = new char [n];        // Tworzymy wiersze macierzy sÄ…siedztwa
 
-  // Macierz wype³niamy zerami
+  // Macierz wypeÅ‚niamy zerami
 
   for(i = 0; i < n; i++)
     for(j = 0; j < n; j++) A[i][j] = 0;
 
-  VD = new int [n];             // Tworzymy tablicê stopni
-  for(i = 0; i < n; i++)        // Zerujemy tablicê stopni
+  VD = new int [n];             // Tworzymy tablicÄ™ stopni
+  for(i = 0; i < n; i++)        // Zerujemy tablicÄ™ stopni
     VD[i] = 0;
 
-  D = new int [n];              // Tworzymy tablicê numerów
+  D = new int [n];              // Tworzymy tablicÄ™ numerÃ³w
 
   S = new int [m + 1];          // Tworzymy pusty stos
   sptr = 0;
 
-  // Odczytujemy kolejne definicje krawêdzi
+  // Odczytujemy kolejne definicje krawÄ™dzi
 
   for(i = 0; i < m; i++)
   {
-    cin >> v1 >> v2;    // Wierzcho³ek startowy i koñcowy krawêdzi
-    A[v1][v2] = 1;      // KrawêdŸ v1->v2 obecna
-    A[v2][v1] = 1;      // KrawêdŸ v2->v1 obecna
+    cin >> v1 >> v2;    // WierzchoÅ‚ek startowy i koÅ„cowy krawÄ™dzi
+    A[v1][v2] = 1;      // KrawÄ™dÅº v1->v2 obecna
+    A[v2][v1] = 1;      // KrawÄ™dÅº v2->v1 obecna
     VD[v1]++;
     VD[v2]++;           // Obliczamy stopnie v1 i v2
   }
@@ -132,18 +132,18 @@ int main()
       break;
     }
 
-  // Wyznaczamy cykl lub œcie¿kê Eulera
+  // Wyznaczamy cykl lub Å›cieÅ¼kÄ™ Eulera
 
   findEuler(v1);
 
-  // Wypisujemy zawartoœæ stosu
+  // Wypisujemy zawartoÅ›Ä‡ stosu
 
   if(VD[v1] % 2) cout << "EULERIAN PATH :"; else cout << "EULERIAN CYCLE :";
 
   for(i = 0; i < sptr; i++) cout << setw(3) << S[i];
   cout << endl;
 
- //To zmieni³em
+ //To zmieniÅ‚em
 
   for(i = 0; i < n; i++) delete [] A[i];
   delete [] A;
