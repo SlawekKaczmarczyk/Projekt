@@ -1,4 +1,4 @@
-// Wyszukiwanie cyklu lub ścieżki Eulera
+// Wyszukiwanie cyklu lub ścieżki Eulera//YU BYL DOMINIK
 // Algorytm Fleury'ego
 // Data: 8.02.2014
 // (C)2014 mgr Jerzy Wałaszek
